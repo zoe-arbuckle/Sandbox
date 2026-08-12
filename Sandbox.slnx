@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/C# Language Features/">
+    <Project Path="GenericNotificationSystem/GenericNotificationSystem.csproj" />
+  </Folder>
+</Solution>

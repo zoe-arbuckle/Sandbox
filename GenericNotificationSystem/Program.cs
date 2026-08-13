@@ -4,6 +4,13 @@ using GenericNotificationSystem.Handlers;
 using GenericNotificationSystem.Models;
 using GenericNotificationSystem.Specifications;
 
+static void Section(string title)
+{
+    Console.WriteLine();
+    Console.WriteLine($"{'-',0}")
+}
+
+
 //  Covariance
 IMessageReader<EmailMessage> emailReader = new EmailReader();
 IMessageReader<IMessage> reader = emailReader;

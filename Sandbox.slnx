@@ -2,4 +2,5 @@
   <Folder Name="/C# Language Features/">
     <Project Path="GenericNotificationSystem/GenericNotificationSystem.csproj" />
   </Folder>
+  <Project Path="Common/Common.csproj" Id="60f8237e-b876-43e7-85d9-2a66ac0adbcf" />
 </Solution>

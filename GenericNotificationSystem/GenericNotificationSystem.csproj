@@ -7,10 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Formatting\" />
-    <Folder Include="Dispatching\" />
-    <Folder Include="Specifications\" />
-  </ItemGroup>
-
 </Project>

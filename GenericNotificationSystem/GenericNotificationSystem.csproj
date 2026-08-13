@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Builders\" />
     <Folder Include="Formatting\" />
     <Folder Include="Dispatching\" />
     <Folder Include="Specifications\" />

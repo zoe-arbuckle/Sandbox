@@ -246,3 +246,46 @@ foreach (var item in page2)
     Console.WriteLine($"  {item.Name}: ${item.Price}");
 
 Console.WriteLine($"Total pages: {TotalPages(PageSize)}");
+
+
+/*
+ * =====================================
+ * SelectMany & Flattening Nested Collections
+ * =====================================
+ */
+CustomConsoleLogs.Section("SelectMany & Flattening Nested Collections");
+var schools = new List<(string SchoolName, List<(string ClassName, List<string> Students)> Classes)>
+{
+    ("Lincoln High", new List<(string, List<string>)>
+    {
+        ("9A", new List<string> { "Alice", "Bob", "Charlie" }),
+        ("9B", new List<string> { "Diana", "Eve" })
+    }),
+    ("Washington High", new List<(string, List<string>)>
+    {
+        ("10A", new List<string> { "Frank", "Grace", "Henry" }),
+        ("10B", new List<string> { "Ivy", "Jack" })
+    })
+};
+
+// flatten all students from all schools and classes to a single list
+var allStudents = schools.SelectMany(
+    school => school.Classes.SelectMany(
+            c => c.Students,
+            (Class, Student) => new { Class.ClassName, Student }
+        ),
+    (School, Class) => new { Class.Student, Class.ClassName, School.SchoolName }
+    ).OrderBy(s => s.SchoolName).ThenBy(s => s.ClassName);
+
+/* alternately, can use query syntax:
+ * 
+ * var allStudents = from school in schools
+                  from @class in school.Classes
+                  from student in @class.Students
+                  orderby school.SchoolName, @class.ClassName
+                  select new { Student, @class.ClassName, school.SchoolName };
+ */
+
+Console.WriteLine("Students with schools and classes");
+foreach (var student in allStudents)
+    Console.WriteLine($"{student.Student} is in class {student.ClassName} at school {student.SchoolName}");

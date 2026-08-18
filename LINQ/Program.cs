@@ -172,3 +172,77 @@ foreach (var email in uniqueEmails)
 {
     Console.WriteLine(email);
 }
+
+/*
+ * =====================================
+ * Join & Combining Collections
+ * =====================================
+ */
+CustomConsoleLogs.Section("Join & Combining Collections");
+var departments = new List<(int DeptId, string DeptName)>
+{
+    (1, "Engineering"),
+    (2, "Sales"),
+    (3, "HR")
+};
+
+var employeesWithDept = new List<(int EmpId, string Name, int DepartmentId)>
+{
+    (101, "Alice", 1),
+    (102, "Bob", 2),
+    (103, "Charlie", 1),
+    (104, "Diana", 3),
+    (105, "Eve", 1)
+};
+
+// match employees with departments
+var joined = employeesWithDept.Join(departments, 
+    employee => employee.DepartmentId, 
+    department => department.DeptId, 
+    (e, d) => new { e.Name, d.DeptName }
+    ).OrderBy(e => e.DeptName).ThenBy(e => e.Name);
+
+foreach (var employee in joined)
+{
+    Console.WriteLine($"{employee.Name}: {employee.DeptName}");
+}
+
+/*
+ * =====================================
+ * Take, Skip & Pagination
+ * =====================================
+ */
+CustomConsoleLogs.Section("Take, Skip & Pagination");
+var productsToPaginate = new List<(string Name, decimal Price)>
+{
+    ("Laptop", 999m),
+    ("Mouse", 25m),
+    ("Keyboard", 75m),
+    ("Monitor", 350m),
+    ("Desk", 300m),
+    ("Chair", 150m),
+    ("Lamp", 45m),
+    ("Headphones", 120m),
+    ("Webcam", 80m),
+    ("USB Cable", 10m)
+};
+
+var orderedProducts = productsToPaginate.OrderByDescending(p => p.Price);
+
+IEnumerable<(string Name, decimal Price)> GetPage(int pageNumber, int pageSize) => orderedProducts.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+int TotalPages(int pageSize) => (orderedProducts.Count() + pageSize - 1) / pageSize;
+
+const int PageSize = 3;
+
+var page1 = GetPage(1, PageSize);
+var page2 = GetPage(2, PageSize);
+
+Console.WriteLine($"Page 1 of {TotalPages(PageSize)}:");
+foreach (var item in page1)
+    Console.WriteLine($"  {item.Name}: ${item.Price}");
+
+Console.WriteLine($"\nPage 2 of {TotalPages(PageSize)}:");
+foreach (var item in page2)
+    Console.WriteLine($"  {item.Name}: ${item.Price}");
+
+Console.WriteLine($"Total pages: {TotalPages(PageSize)}");

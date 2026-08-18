@@ -68,3 +68,26 @@ foreach (var price in discountedPrices)
  * =====================================
  */
 CustomConsoleLogs.Section("FirstOrDefault, SingleOrDefault & Aggregation");
+List<int> scores = new List<int> { 45, 78, 92, 65, 88, 55, 91, 72 };
+
+// highest score
+int max = scores.Max();
+Console.WriteLine($"Highest score: {max}");
+// lowest score
+int min = scores.Min();
+Console.WriteLine($"Lowest score: {min}");
+// average score (2 decimal places)
+double average = Math.Round(scores.Average(), 2, MidpointRounding.AwayFromZero);
+Console.WriteLine($"Average score: {average}");
+// count of scores 80 or above
+int scoresGreaterOrEqual80 = scores.Count(s => s >= 80);
+Console.WriteLine($"Count of scores 80 or above: {scoresGreaterOrEqual80}");
+// Whether any score is below 50
+bool anyBelow50 = scores.Any(s => s < 50);
+Console.WriteLine($"Any score below 50: {anyBelow50}");
+// Whether all scores are 40 or above
+bool allAbove40 = scores.All(s => s >= 40);
+Console.WriteLine($"All scores above 40: {allAbove40}");
+// The first score that's 85 or above
+int firstAbove85 = scores.FirstOrDefault(s => s >= 85);
+Console.WriteLine($"First score 85 or above: {firstAbove85}");

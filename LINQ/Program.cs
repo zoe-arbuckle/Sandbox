@@ -116,3 +116,34 @@ foreach (var employee in orderedEmployees)
 {
     Console.WriteLine($"Name: {employee.Name}, Department: {employee.Department}, Salary: {employee.Salary}");
 }
+
+/*
+ * =====================================
+ * GroupBy & Grouping Data
+ * =====================================
+ */
+CustomConsoleLogs.Section("GroupBy & Grouping Data");
+var products = new List<(string Name, string Category, decimal Price)>
+{
+    ("Laptop", "Electronics", 999m),
+    ("Mouse", "Electronics", 25m),
+    ("Desk", "Furniture", 300m),
+    ("Chair", "Furniture", 150m),
+    ("Monitor", "Electronics", 350m),
+    ("Lamp", "Furniture", 45m)
+};
+
+// group products by category & sort alphabetically
+var groupedProducts = products.GroupBy(s => s.Category).OrderBy(s => s.Key);
+// for each category, display
+//      category name
+//      products in the category
+//      count of products
+//      average price, rounded to 2 decimals
+foreach (var category in groupedProducts)
+{
+    Console.WriteLine($"Category: {category.Key}");
+    Console.WriteLine($"Products: {string.Join(", ", category.Select(s => s.Name))}");
+    Console.WriteLine($"Count: {category.Count()}");
+    Console.WriteLine($"Average Price: {Math.Round(category.Average(p => p.Price), 2, MidpointRounding.AwayFromZero)}");
+}

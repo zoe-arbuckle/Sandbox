@@ -196,9 +196,9 @@ var employeesWithDept = new List<(int EmpId, string Name, int DepartmentId)>
 };
 
 // match employees with departments
-var joined = employeesWithDept.Join(departments, 
-    employee => employee.DepartmentId, 
-    department => department.DeptId, 
+var joined = employeesWithDept.Join(departments,
+    employee => employee.DepartmentId,
+    department => department.DeptId,
     (e, d) => new { e.Name, d.DeptName }
     ).OrderBy(e => e.DeptName).ThenBy(e => e.Name);
 
@@ -289,3 +289,82 @@ var allStudents = schools.SelectMany(
 Console.WriteLine("Students with schools and classes");
 foreach (var student in allStudents)
     Console.WriteLine($"{student.Student} is in class {student.ClassName} at school {student.SchoolName}");
+
+/*
+ * =====================================
+ * Any, All & Validation
+ * =====================================
+ */
+CustomConsoleLogs.Section("Any, All & Validation");
+var users = new List<(string Name, int Age, bool IsActive, List<string> Roles)>
+{
+    ("Alice", 28, true, new List<string> { "Admin", "User" }),
+    ("Bob", 35, false, new List<string> { "User" }),
+    ("Charlie", 22, true, new List<string> { "Moderator", "User" }),
+    ("Diana", 45, true, new List<string> { "Admin" }),
+    ("Eve", 19, true, new List<string> { "User" })
+};
+
+Console.WriteLine($"Any user inactive: {users.Any(u => !u.IsActive)}");
+Console.WriteLine($"All users 18+: {users.All(u => u.Age >= 18)}");
+Console.WriteLine($"Any user has admin role: {users.Any(u => u.Roles.Any(u => u.Equals("Admin")))}");
+Console.WriteLine($"All active users have at least one role: {users.All(u => u.Roles.Any())}");
+Console.WriteLine($"Any user is under 21 and active: {users.Any(u => u.Age < 21 && u.IsActive)}");
+
+/*
+ * =====================================
+ * Capstone
+ * =====================================
+ */
+CustomConsoleLogs.Section("Capstone");
+/*
+ You're building a reporting system for an online store. You need to:
+
+    Analyze customer orders
+    Generate sales summaries by category
+    Find top performing products
+    Identify at-risk customers (haven't ordered recently)
+    Create paginated reports
+ */
+
+var orders = new List<(int OrderId, string CustomerId, DateTime OrderDate, List<(string ProductName, string Category, int Quantity, decimal Price)> Items)>
+{
+    (1, "C001", new DateTime(2024, 1, 15), new List<(string, string, int, decimal)>
+    {
+        ("Laptop", "Electronics", 1, 999m),
+        ("Mouse", "Electronics", 2, 25m)
+    }),
+    (2, "C002", new DateTime(2024, 2, 20), new List<(string, string, int, decimal)>
+    {
+        ("Desk", "Furniture", 1, 300m)
+    }),
+    (3, "C001", new DateTime(2024, 3, 10), new List<(string, string, int, decimal)>
+    {
+        ("Monitor", "Electronics", 1, 350m),
+        ("Keyboard", "Electronics", 1, 75m)
+    }),
+    (4, "C003", new DateTime(2024, 1, 5), new List<(string, string, int, decimal)>
+    {
+        ("Chair", "Furniture", 3, 150m)
+    }),
+    (5, "C002", new DateTime(2024, 3, 25), new List<(string, string, int, decimal)>
+    {
+        ("Lamp", "Furniture", 2, 45m)
+    }),
+    (6, "C001", new DateTime(2024, 3, 28), new List<(string, string, int, decimal)>
+    {
+        ("Headphones", "Electronics", 1, 120m)
+    })
+};
+
+// sales by category
+var groupedByCategory = orders.SelectMany(o => o.Items).GroupBy(i => i.Category).OrderByDescending(c => c.Sum(c => c.Quantity * c.Price));
+Console.WriteLine("Revenue per category");
+foreach (var category in groupedByCategory)
+    Console.WriteLine($"Category: {category.Key}, Products Sold: {category.Count()} Revenue: {category.Sum(c => c.Quantity * c.Price)}");
+
+// top products
+var groupedByProduct = orders.SelectMany(o => o.Items).GroupBy(i => i.ProductName)
+
+// customer activity
+// pagination

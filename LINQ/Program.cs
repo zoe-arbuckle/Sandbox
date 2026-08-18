@@ -91,3 +91,28 @@ Console.WriteLine($"All scores above 40: {allAbove40}");
 // The first score that's 85 or above
 int firstAbove85 = scores.FirstOrDefault(s => s >= 85);
 Console.WriteLine($"First score 85 or above: {firstAbove85}");
+
+/*
+ * =====================================
+ * OrderBy, ThenBy & Sorting
+ * =====================================
+ */
+CustomConsoleLogs.Section("OrderBy, ThenBy & Sorting");
+var employees = new List<(string Name, string Department, int Salary)>
+{
+    ("Alice", "Engineering", 85000),
+    ("Bob", "Sales", 65000),
+    ("Charlie", "Engineering", 90000),
+    ("Diana", "Sales", 75000),
+    ("Eve", "Engineering", 80000)
+};
+
+// primary sort - by department, alphabetically ascending
+// secondary sort - by salary, descending
+
+var orderedEmployees = employees.OrderBy(s => s.Department).ThenByDescending(s => s.Salary);
+Console.WriteLine("Employees by department (alphabetically ascending), then salary (descending)");
+foreach (var employee in orderedEmployees)
+{
+    Console.WriteLine($"Name: {employee.Name}, Department: {employee.Department}, Salary: {employee.Salary}");
+}

@@ -147,3 +147,28 @@ foreach (var category in groupedProducts)
     Console.WriteLine($"Count: {category.Count()}");
     Console.WriteLine($"Average Price: {Math.Round(category.Average(p => p.Price), 2, MidpointRounding.AwayFromZero)}");
 }
+
+/*
+ * =====================================
+ * Distinct & Removing Duplicates
+ * =====================================
+ */
+CustomConsoleLogs.Section("Distinct & Removing Duplicates");
+List<string> emails = new List<string>
+{
+    "alice@example.com",
+    "bob@example.com",
+    "alice@example.com",
+    "charlie@example.com",
+    "bob@example.com",
+    "diana@example.com",
+    "alice@example.com"
+};
+
+// get all unique email addresses, sort them alphabetically, count the number of unique emails, and display each unique email
+var uniqueEmails = emails.Distinct().OrderBy(e => e);
+Console.WriteLine($"{uniqueEmails.Count()} unique emails");
+foreach (var email in uniqueEmails)
+{
+    Console.WriteLine(email);
+}

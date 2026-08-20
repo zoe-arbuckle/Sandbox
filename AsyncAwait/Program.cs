@@ -26,3 +26,12 @@
 //Common.CustomConsoleLogs.Section("Exception Handling in Async Code");
 //Lesson3_ExceptionHandling exceptionHandling = new();
 //await exceptionHandling.Main();
+
+/*
+ * =====================================
+ * ConfigureAwait() and Synchronization Context
+ * =====================================
+ */
+Common.CustomConsoleLogs.Section("ConfigureAwait() and Synchronization Context");
+Lesson4_ConfigureAwaitAndContext context = new();
+context.Main();

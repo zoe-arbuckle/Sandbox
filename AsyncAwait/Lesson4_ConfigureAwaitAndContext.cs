@@ -121,5 +121,26 @@ namespace AsyncAwait
             // (In real code: textBox.Text = userData;)
             Console.WriteLine($"Updating UI with: {userData}");
         }
+
+        public async Task AnalyzeContextBehaviorAsync(int userCount = 5)
+        {
+            for (int i = 0; i < userCount; i++) { 
+                await FetchUserAsync(i).ConfigureAwait(false);
+                Console.WriteLine($"[FetchWithoutContext] After await - Thread: {Thread.CurrentThread.ManagedThreadId}");
+                // threads may not be consistent
+            }
+        }
+
+        public async Task Main()
+        {
+            // call and compare
+            await FetchWithContextAsync(1);
+            await FetchWithoutContextAsync(1); // might switch threads - context does not have an effect on Console Applications because they don't have SynchronizationContext by default
+            // UI applications (WinForms, WPF, UWP) have UI SynchronizationContext, as do older versions of ASP.NET
+
+            await AnalyzeContextBehaviorAsync();
+            Console.WriteLine("library code should use ConfigureAwait(false) because we don't know control the caller or know what the caller's context is");
+            Console.WriteLine("UI code should use ConfigureAwait(true) because we need to return to the UI context to update UI controls");
+        }
     }
 }

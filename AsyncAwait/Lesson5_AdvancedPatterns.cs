@@ -132,7 +132,7 @@ namespace AsyncAwait
         public async Task DemoAsyncResourceDisposalAsync()
         {
             // Simulating an async resource that needs cleanup
-            using (var resource = new AsyncResource())
+            await using (var resource = new AsyncResource())
             {
                 await resource.InitializeAsync();
                 string data = await resource.FetchDataAsync();
@@ -191,6 +191,29 @@ namespace AsyncAwait
 
             Console.WriteLine("\n=== Async Resource Disposal ===");
             await DemoAsyncResourceDisposalAsync();
+        }
+
+        public async Task Main()
+        {
+            await GetCachedUserAsync(1);
+            await GetCachedUserAsync(99);
+            Console.WriteLine("GetCachedUserAsync(99) allocated memory because the value was not cached and could not complete synchronously.");
+
+            await foreach (var user in FetchAllUsersAsyncStreamAsync(3))
+                Console.WriteLine($"Fetched user: {user}");
+            Console.WriteLine("Async streams return information as it comes through, rather than waiting for all data to be available.");
+
+            try
+            {
+                await FetchUserWithTimeoutAsync(1, timeoutMs: 500);
+            }
+            catch (OperationCanceledException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            Console.WriteLine("Timeouts are important to prevent long-running tasks from never stopping, or exceeding time limits that could affect user experience for example.");
+
+            await DemonstratePatternsAsync();
         }
     }
 }

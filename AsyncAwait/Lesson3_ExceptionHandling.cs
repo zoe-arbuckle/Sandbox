@@ -6,12 +6,12 @@ namespace AsyncAwait
         public async Task<string> FetchUserDataAsync(int userId, bool shouldFail = false)
         {
             await Task.Delay(1000);
-            
+
             if (shouldFail)
             {
                 throw new HttpRequestException($"Failed to fetch user {userId}");
             }
-            
+
             return $"User {userId} data retrieved successfully";
         }
 
@@ -19,7 +19,7 @@ namespace AsyncAwait
         public async Task HandleSingleExceptionAsync()
         {
             Console.WriteLine("=== Single Exception Handling ===");
-            
+
             try
             {
                 string result = await FetchUserDataAsync(1, shouldFail: true);
@@ -29,7 +29,7 @@ namespace AsyncAwait
             {
                 Console.WriteLine($"Error caught: {ex.Message}");
             }
-            
+
             Console.WriteLine();
         }
 
@@ -37,7 +37,7 @@ namespace AsyncAwait
         public async Task HandleMultipleExceptionsAsync()
         {
             Console.WriteLine("=== Multiple Exceptions (Task.WhenAll) ===");
-            
+
             try
             {
                 Task<string>[] tasks = new Task<string>[]
@@ -46,9 +46,9 @@ namespace AsyncAwait
                     FetchUserDataAsync(2, shouldFail: true),  // This will fail
                     FetchUserDataAsync(3, shouldFail: true)   // This will fail
                 };
-                
+
                 string[] results = await Task.WhenAll(tasks);
-                
+
                 foreach (var result in results)
                 {
                     Console.WriteLine(result);
@@ -67,7 +67,7 @@ namespace AsyncAwait
                 // This catches individual exceptions, not aggregate
                 Console.WriteLine($"Single exception: {ex.Message}");
             }
-            
+
             Console.WriteLine();
         }
 
@@ -75,14 +75,14 @@ namespace AsyncAwait
         public async Task HandlePartialFailureAsync()
         {
             Console.WriteLine("=== Partial Failure with Continuation ===");
-            
+
             Task<string>[] tasks = new Task<string>[]
             {
                 FetchUserDataAsync(1, shouldFail: false),
                 FetchUserDataAsync(2, shouldFail: true),
                 FetchUserDataAsync(3, shouldFail: false)
             };
-            
+
             // Use ContinueWith to handle failures gracefully
             Task<string[]> allTasksWithFallback = Task.WhenAll(tasks)
                 .ContinueWith(async t =>
@@ -95,7 +95,7 @@ namespace AsyncAwait
                     }
                     return await t;
                 }).Unwrap();
-            
+
             try
             {
                 string[] results = await allTasksWithFallback;
@@ -108,7 +108,7 @@ namespace AsyncAwait
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
-            
+
             Console.WriteLine();
         }
 
@@ -116,7 +116,7 @@ namespace AsyncAwait
         public async Task FinallyWithAsyncAsync()
         {
             Console.WriteLine("=== Finally Block with Async ===");
-            
+
             try
             {
                 await FetchUserDataAsync(1, shouldFail: true);
@@ -132,8 +132,47 @@ namespace AsyncAwait
                 await Task.Delay(500); // Can have async operations in finally
                 Console.WriteLine("Cleanup complete");
             }
-            
+
             Console.WriteLine();
+        }
+
+        public async Task<bool> DemonstrateExceptionPropagationAsync()
+        {
+            bool success = true;
+            try
+            {
+                Task<string>[] tasks = new Task<string>[]
+                {
+                    FetchUserDataAsync(1, shouldFail: false),
+                    FetchUserDataAsync(2, shouldFail: true),  // This will fail
+                    FetchUserDataAsync(3, shouldFail: false)
+                };
+
+                string[] results = await Task.WhenAll(tasks);
+            }
+            catch (AggregateException aggEx)
+            {
+                Console.WriteLine($"Operation failed with {aggEx.InnerExceptions.Count} error(s): {string.Join(", ", aggEx.InnerExceptions.Select(e => e.Message))}");
+                success = false;
+            }
+            catch (HttpRequestException ex)
+            {
+                // This catches individual exceptions, not aggregate
+                Console.WriteLine($"Operation failed with 1 error(s): {ex.Message}");
+                success = false;
+            }
+            return success;
+        }
+
+        public async Task Main()
+        {
+            //await HandleSingleExceptionAsync();
+            //await HandleMultipleExceptionsAsync();
+            //await HandlePartialFailureAsync();
+            //await FinallyWithAsyncAsync();
+
+            var success = await DemonstrateExceptionPropagationAsync();
+            Console.WriteLine($"Method success: {success}");
         }
     }
 }

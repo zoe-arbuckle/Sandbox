@@ -14,6 +14,15 @@
  * Parallel Async Operations with Task.WhenAll() and Task.WhenAny()
  * =====================================
  */
-Common.CustomConsoleLogs.Section("Parallel Async Operations with Task.WhenAll() and Task.WhenAny()");
-Lesson2_ParallelAsyncOperations parallel = new();
-await parallel.Main();
+//Common.CustomConsoleLogs.Section("Parallel Async Operations with Task.WhenAll() and Task.WhenAny()");
+//Lesson2_ParallelAsyncOperations parallel = new();
+//await parallel.Main();
+
+/*
+ * =====================================
+ * Exception Handling in Async Code
+ * =====================================
+ */
+//Common.CustomConsoleLogs.Section("Exception Handling in Async Code");
+//Lesson3_ExceptionHandling exceptionHandling = new();
+//await exceptionHandling.Main();

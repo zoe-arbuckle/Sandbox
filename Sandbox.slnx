@@ -1,9 +1,10 @@
 <Solution>
-  <Folder Name="/Advanced Language Features/">
-    <Project Path="GenericNotificationSystem/GenericNotificationSystem.csproj" />
-  </Folder>
   <Folder Name="/Fundamentals/">
+    <Project Path="AsyncAwait/AsyncAwait.csproj" Id="b1c5267d-a1a8-4716-a95f-3aa7aec2c777" />
     <Project Path="LINQ/LINQ.csproj" Id="fbd76a5f-9fc6-4da5-9f31-5142fceca62c" />
+  </Folder>
+  <Folder Name="/Language_Features/" Id="86b61aab-7ac8-fd0b-c633-6155efd9b6cb">
+    <Project Path="GenericNotificationSystem/GenericNotificationSystem.csproj" />
   </Folder>
   <Project Path="Common/Common.csproj" Id="60f8237e-b876-43e7-85d9-2a66ac0adbcf" />
 </Solution>

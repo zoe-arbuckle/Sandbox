@@ -166,10 +166,10 @@ namespace AsyncAwait
 
         public async Task Main()
         {
-            //await HandleSingleExceptionAsync();
-            //await HandleMultipleExceptionsAsync();
-            //await HandlePartialFailureAsync();
-            //await FinallyWithAsyncAsync();
+            await HandleSingleExceptionAsync();
+            await HandleMultipleExceptionsAsync();
+            await HandlePartialFailureAsync();
+            await FinallyWithAsyncAsync();
 
             var success = await DemonstrateExceptionPropagationAsync();
             Console.WriteLine($"Method success: {success}");

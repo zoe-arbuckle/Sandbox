@@ -8,7 +8,7 @@
             return "User data retrieved at " + DateTime.Now.ToString("HH:mm:ss.fff");
         }
 
-        public async Task FetchMultipleUsersAsync(int numberOfUsers = 3)
+        public async Task FetchMultipleUsersSequentialAsync(int numberOfUsers = 3)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
 

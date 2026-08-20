@@ -1,4 +1,5 @@
 ﻿using Common;
+using System.Runtime.InteropServices;
 
 /*
  * =====================================
@@ -364,7 +365,34 @@ foreach (var category in groupedByCategory)
     Console.WriteLine($"Category: {category.Key}, Products Sold: {category.Count()} Revenue: {category.Sum(c => c.Quantity * c.Price)}");
 
 // top products
-var groupedByProduct = orders.SelectMany(o => o.Items).GroupBy(i => i.ProductName)
+var groupedByProduct = orders.SelectMany(o => o.Items).GroupBy(i => i.ProductName).Where(i => i.Sum(p => p.Quantity) > 1).OrderByDescending(i => i.Sum(c => c.Quantity * c.Price));
+Console.WriteLine("Top 3 products by revenue");
+foreach (var product in groupedByProduct.Take(3))
+    Console.WriteLine($"Category: {product.Key}, Revenue: {product.Sum(c => c.Quantity * c.Price)}");
 
 // customer activity
+var ordersPerCustomer = orders.GroupBy(c => c.CustomerId);
+Console.WriteLine("Unique Customers");
+foreach (var customer in ordersPerCustomer)
+{
+    Console.WriteLine($"{customer.Key}");
+    Console.WriteLine($"Order Count: {customer.Count()}");
+    Console.WriteLine($"Average order value: {Math.Round(customer.Average(c => c.Items.Sum(i => i.Quantity * i.Price)), 2, MidpointRounding.AwayFromZero)}");
+    Console.WriteLine($"Orders in March 2024: {customer.Any(o => o.OrderDate.Month == 3 && o.OrderDate.Year == 2024)}");
+}
+
 // pagination
+IEnumerable<(int OrderId, string CustomerId, DateTime OrderDate, List<(string ProductName, string Category, int Quantity, decimal Price)> Items)> GetOrdersPage(int pageNumber, int pageSize) => orders.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+int TotalOrdersPages(int pageSize) => (orders.Count() + pageSize - 1) / pageSize;
+
+int size = 2;
+var pageOne = GetOrdersPage(1, size);
+
+Console.WriteLine($"Page 1 of {TotalOrdersPages(size)}:");
+foreach (var order in pageOne) {
+    Console.WriteLine($"Order: {order.OrderId}, Customer: {order.CustomerId}, OrderDate: {order.OrderDate}");
+    foreach (var item in order.Items)
+    {
+        Console.WriteLine($"Item: {item.ProductName}, Category: {item.Category}, Quantity: {item.Quantity}, Price: {item.Price}");
+    }
+}

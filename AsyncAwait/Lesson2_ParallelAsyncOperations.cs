@@ -68,5 +68,13 @@ namespace AsyncAwait
             watch.Stop();
             Console.WriteLine($"Total time: {watch.ElapsedMilliseconds}ms\n");
         }
+
+        public async Task Main()
+        {
+            await FetchUsersSequentialAsync();
+            await FetchUsersParallelAsync();
+            // Task.WhenAny() is fast but only returns one result because Task.WhenAny() returns as soon as the first task completes. 
+            await FetchFirstUserAvailableAsync();
+        }
     }
 }

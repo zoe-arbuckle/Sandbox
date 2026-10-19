@@ -14,6 +14,9 @@ Strengthen advanced backend engineering skills in:
 - [Polly Docs](https://www.pollydocs.org/)
 
 ## Topics
+### Cloud Development
+- [Resilience Patterns & Distributed System Fundamentals](./Documentation/Topics/Cloud%20Development/Resilience%20Patterns%20&%20Distributed%20System%20Fundamentals.md)
+
 ### Language Fundamentals
 - [LINQ](./Documentation/Topics/Fundamentals/LINQ.md)
 - [AsyncAwait](./Documentation/Topics/Fundamentals/AsyncAwait.md)

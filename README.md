@@ -1,1 +1,70 @@
-initial commit
+# Sandbox for C# Review
+## Goal
+Strengthen advanced backend engineering skills in:
+- Modern C# and .NET
+- Architecture and distributed systems
+- Performance and scalability
+- Reliability and observability
+- Staff-level technical leadership
+- Architecture communication and technical influence
+
+## Learning Tools
+- [[Github Copilot|AI Prompts]]
+- [Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/)
+
+## Topics
+### Language Fundamentals
+- [[LINQ]]
+- [[AsyncAwait]]
+
+### Advanced Language Features
+- [[Generics]]
+
+## Planned Future Topics
+### Language Fundamentals
+- Delegates, Events, and Lambda Expressions
+- Nullable Reference Types
+- Properties and Indexers
+
+### Advanced Language Features
+- Reliability Engineering
+- Dynamic Methods
+- Fluent Builders
+
+### Object Oriented & Functional Patterns
+- Inheritance and Polymorphism
+- Composition vs Inheritance
+- Extension Methods
+- Functional Programming Basics
+
+### .NET Ecosystem and Performance
+- Dependency Injection & IServiceProvider
+- Collections and Data Structures
+- String Handling & Immutability
+- Memory and Garbage Collection
+- Reflection & Attributes
+
+### Practical & Applied Topics
+- Unit Testing, Mocking, and Test Driven Development
+- Exception Handling & Custom Exceptions
+- HTTP & REST API concepts
+
+### Communication & Leadership
+- Architecture Communication
+- Design Reviews
+- Mentoring & Knowledge Scaling
+
+### Architecture and Distributed Systems
+- Architectural styles
+- API Design at Scale
+- Database Performance
+- Caching Strategies
+- High Throughput APIS
+- Distributed Tracing
+
+### Cloud Development and Deployment
+- Containerization
+- Kubernetes Concepts
+- Cloud Architecture Patterns
+- Infrastructure as Code
+- Observability Fundamentals

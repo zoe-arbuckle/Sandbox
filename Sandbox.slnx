@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Documentation/">
+    <File Path="README.md" />
+  </Folder>
   <Folder Name="/Fundamentals/">
     <Project Path="AsyncAwait/AsyncAwait.csproj" Id="b1c5267d-a1a8-4716-a95f-3aa7aec2c777" />
     <Project Path="LINQ/LINQ.csproj" Id="fbd76a5f-9fc6-4da5-9f31-5142fceca62c" />

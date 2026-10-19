@@ -9,16 +9,16 @@ Strengthen advanced backend engineering skills in:
 - Architecture communication and technical influence
 
 ## Learning Tools
-- [[Github Copilot|AI Prompts]]
+- [Github Copilot AI Prompts](./Documentation/Learning%20Tools/AI%20Prompts.md)
 - [Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/)
 
 ## Topics
 ### Language Fundamentals
-- [[LINQ]]
-- [[AsyncAwait]]
+- [LINQ](./Documentation/Topics/Fundamentals/LINQ.md)
+- [AsyncAwait](./Documentation/Topics/Fundamentals/AsyncAwait.md)
 
 ### Advanced Language Features
-- [[Generics]]
+- [Generics](./Documentation/Topics/Language%20Features/Generics.md)
 
 ## Planned Future Topics
 ### Language Fundamentals

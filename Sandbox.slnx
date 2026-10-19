@@ -2,6 +2,17 @@
   <Folder Name="/Documentation/">
     <File Path="README.md" />
   </Folder>
+  <Folder Name="/Documentation/Learning Tools/">
+    <File Path="Documentation/Learning_Tools/AI Prompts.md" />
+  </Folder>
+  <Folder Name="/Documentation/Topics/" />
+  <Folder Name="/Documentation/Topics/Fundamentals/">
+    <File Path="Documentation/Topics/Fundamentals/AsyncAwait.md" />
+    <File Path="Documentation/Topics/Fundamentals/LINQ.md" />
+  </Folder>
+  <Folder Name="/Documentation/Topics/Language Features/">
+    <File Path="Documentation/Topics/Language_Features/Generics.md" />
+  </Folder>
   <Folder Name="/Fundamentals/">
     <Project Path="AsyncAwait/AsyncAwait.csproj" Id="b1c5267d-a1a8-4716-a95f-3aa7aec2c777" />
     <Project Path="LINQ/LINQ.csproj" Id="fbd76a5f-9fc6-4da5-9f31-5142fceca62c" />

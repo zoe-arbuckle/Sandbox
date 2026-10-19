@@ -11,6 +11,7 @@ Strengthen advanced backend engineering skills in:
 ## Learning Tools
 - [Github Copilot AI Prompts](./Documentation/Learning%20Tools/AI%20Prompts.md)
 - [Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/)
+- [Polly Docs](https://www.pollydocs.org/)
 
 ## Topics
 ### Language Fundamentals

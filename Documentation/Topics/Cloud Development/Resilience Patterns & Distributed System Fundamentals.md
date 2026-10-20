@@ -68,12 +68,16 @@ Transient exceptions like network failures should be retried, permanent exceptio
 
 1. Circuit breaker thresholds - 
 failureratio - 50% failure for any API
+
 minimumthroughput - 500 requests avg. lower for firmware since I expect fewer calls to this, higher for sensor data as we likely expect a higher number of requests. 
+
 samplingduration - 60s perhaps longer for firmware, shorter for sensor data
+
 breakduration - 30s for all
 
 1. Concurrency limits - 
 permitLimit - 1000 avg. lower for firmware since I expect fewer calls to this, higher for sensor data as we likely expect a higher number of requests. 
+
 queueLimit - 3000 avg.  lower for firmware since I expect fewer calls to this, higher for sensor data as we likely expect a higher number of requests. 
 
 1. fallback behavior - 

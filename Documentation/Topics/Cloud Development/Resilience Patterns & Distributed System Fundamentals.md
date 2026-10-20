@@ -68,13 +68,13 @@ Transient exceptions like network failures should be retried, permanent exceptio
 
 1. Circuit breaker thresholds - 
 failureratio - 50% failure for any API
-minimumthroughput - 100 requests avg. lower for firmware since I expect fewer calls to this, higher for sensor data as we likely expect a higher number of requests. 
-samplingduration - 60s? perhaps longer for firmware, shorter for sensor data
+minimumthroughput - 500 requests avg. lower for firmware since I expect fewer calls to this, higher for sensor data as we likely expect a higher number of requests. 
+samplingduration - 60s perhaps longer for firmware, shorter for sensor data
 breakduration - 30s for all
 
 1. Concurrency limits - 
-permitLimit - 1000
-queueLimit - 3000
+permitLimit - 1000 avg. lower for firmware since I expect fewer calls to this, higher for sensor data as we likely expect a higher number of requests. 
+queueLimit - 3000 avg.  lower for firmware since I expect fewer calls to this, higher for sensor data as we likely expect a higher number of requests. 
 
 1. fallback behavior - 
 The device status and sensor reading APIs should not have fallback. Firmware version could fall back either to the latest value read or a default value, as firmware version can be stale.
@@ -82,3 +82,6 @@ Sensor readings must not be stale, so they should default to an exception. Devic
 
 1. composition - 
 fallback -> concurrency limit -> circuit breaker -> retries. same pipeline across all deivces so concurrency limit and circuit breaker behave as expected.
+Fallback here is caatching failures from the entire inner pipeline.
+
+All parameters should be tuned with real traffic volume, as these are initial guesses.

@@ -58,3 +58,27 @@ when the original token is cancelled.
 ##### Rate Limiter
 Rate limiter controls the number of operations that can pass through it. This can be used to control inbound load rate (rate limiter) or outbound load (concurrency limiter).
 Rate limiters can also be partitioned by a key, to further apply the rate limits to each user for example.
+
+## Practical Exercise
+You have 10,000 IoT devices, each needing telemetry from 3 external APIs (Device Status, Sensor Reading, Firmware Version). Design a resilience strategy.
+
+### Answer
+1. Retries - Retry with exponential backoff and jitter for all 3 APIs. We wouldn't want any of these APIs to be hit by all devices or a high number of devices at the same time, thus the jitter.
+Transient exceptions like network failures should be retried, permanent exceptions like bad requests or authorization issues should not be retried. This strategy is the same across all three.
+
+1. Circuit breaker thresholds - 
+failureratio - 50% failure for any API
+minimumthroughput - 100 requests avg. lower for firmware since I expect fewer calls to this, higher for sensor data as we likely expect a higher number of requests. 
+samplingduration - 60s? perhaps longer for firmware, shorter for sensor data
+breakduration - 30s for all
+
+1. Concurrency limits - 
+permitLimit - 1000
+queueLimit - 3000
+
+1. fallback behavior - 
+The device status and sensor reading APIs should not have fallback. Firmware version could fall back either to the latest value read or a default value, as firmware version can be stale.
+Sensor readings must not be stale, so they should default to an exception. Device status could either default to a 'device offline' state or an exception.
+
+1. composition - 
+fallback -> concurrency limit -> circuit breaker -> retries. same pipeline across all deivces so concurrency limit and circuit breaker behave as expected.
